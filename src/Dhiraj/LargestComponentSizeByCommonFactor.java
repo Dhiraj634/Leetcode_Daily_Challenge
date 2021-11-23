@@ -1,12 +1,16 @@
 package Dhiraj;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 
 public class LargestComponentSizeByCommonFactor {
-	int[] parent = new int[100001];
-	int[] rank = new int[100001];
+	int[] parent;
+	int[] rank;
 	public int largestComponentSize(int[] nums) {
+		int max = Arrays.stream(nums).max().getAsInt();
+		parent = new int[max+1];
+		rank = new int[max+1];
 		for(int i=0;i<parent.length;i++){
 			parent[i] = i;
 		}
