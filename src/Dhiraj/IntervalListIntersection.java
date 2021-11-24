@@ -27,15 +27,13 @@ public class IntervalListIntersection {
 //				x++;y++;
 //			}
 			else{
-				if(secondList[y][0] == firstList[x][1]){
-					ans.add(new ArrayList<>(Arrays.asList(firstList[x][1],firstList[x][1])));
+				if(secondList[y][0] >= firstList[x][1]){
+					if(secondList[y][0] == firstList[x][1])
+						ans.add(new ArrayList<>(Arrays.asList(firstList[x][1],firstList[x][1])));
 					x++;
-				}else if(firstList[x][0] == secondList[y][1]){
-					ans.add(new ArrayList<>(Arrays.asList(firstList[x][0],firstList[x][0])));
-					y++;
-				}else if(secondList[y][0] > firstList[x][1]){
-					x++;
-				}else if(firstList[x][0] > secondList[y][1]){
+				}else if(firstList[x][0] >= secondList[y][1]){
+					if(firstList[x][0] == secondList[y][1])
+						ans.add(new ArrayList<>(Arrays.asList(firstList[x][0],firstList[x][0])));
 					y++;
 				}
 			}
