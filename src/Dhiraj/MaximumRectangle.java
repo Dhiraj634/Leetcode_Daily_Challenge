@@ -32,6 +32,9 @@ public class MaximumRectangle {
 				int tempArea = cummSum[start][end] - cummSum[start][end+len] - cummSum[start+width][end] + cummSum[start+width][end+len];
 				if(tempArea == len*width){
 					maxArea = Math.max(tempArea, maxArea);
+				}else{
+					// If at a particular width the tempArea != len * width the going forward with width will definitely not match hence break
+					break;
 				}
 			}
 		}
