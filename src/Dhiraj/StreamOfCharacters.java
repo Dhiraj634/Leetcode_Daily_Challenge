@@ -4,7 +4,7 @@ public class StreamOfCharacters {
 	private Node root;
 	private StringBuilder streamOfChar;
 	public StreamOfCharacters(String[] words) {
-		root = new Node('\0');
+		root = new Node();
 		streamOfChar = new StringBuilder();
 		for(String word: words){
 			insert(root,word,word.length()-1);
@@ -16,37 +16,31 @@ public class StreamOfCharacters {
 	}
 
 	private void insert(Node root, String word, int index){
-		if(index < 0) return;
-		if(root.childNode[word.charAt(index)-'a'] == null){
-			root.childNode[word.charAt(index)-'a'] = new Node(word.charAt(index));
+		while(index >= 0){
+			if(root.childNode[word.charAt(index)-'a'] == null){
+				root.childNode[word.charAt(index)-'a'] = new Node();
+			}
+			root = root.childNode[word.charAt(index)-'a'];
+			index--;
 		}
-		insert(root.childNode[word.charAt(index)-'a'],word,index-1);
-		if(index == 0){
-			root.childNode[word.charAt(index)-'a'].isEnd = true;
-		}
+		root.isEnd = true;
 	}
 
 	private boolean searchSuffix(String word, Node root, int charIndex){
-		if(charIndex < 0) return false;
-		if(root == null) return false;
-		int index = word.charAt(charIndex) - 'a';
-		if(root.childNode[index] != null){
-			if(root.childNode[index].isEnd) return true;
-			else{
-				return searchSuffix(word,root.childNode[index],charIndex-1);
-			}
-		}else{
-			return false;
+		while(charIndex>=0){
+			root = root.childNode[word.charAt(charIndex)-'a'];
+			if(root==null) break;
+			if(root.isEnd) return true;
+			charIndex--;
 		}
+		return false;
 
 	}
 
 	class Node{
-		char value;
 		Node[] childNode;
 		boolean isEnd;
-		public Node(char ch){
-			this.value = ch;
+		public Node(){
 			this.isEnd = false;
 			childNode = new Node[26];
 		}
