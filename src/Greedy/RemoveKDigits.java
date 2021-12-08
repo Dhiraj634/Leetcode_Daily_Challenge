@@ -4,6 +4,7 @@ public class RemoveKDigits {
 	public String removeKdigits(String num, int k) {
 		int len = num.length();
 		int removed = 0;
+		// If this condition is removed then also the code will work
 		if(k == num.length()) return "0";
 		StringBuilder sb = new StringBuilder();
 		sb.append(num.charAt(0));
