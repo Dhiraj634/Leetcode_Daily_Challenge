@@ -47,4 +47,22 @@ public class QueueReconstructionByHeight {
 			this.next = null;
 		}
 	}
+	/**
+	 * More Optimized Solution
+	 * class Solution {
+	 *     public int[][] reconstructQueue(int[][] people) {
+	 *         Arrays.sort(people, (a, b) -> a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]);
+	 *
+	 *         List<int[]> ansList = new ArrayList<>();
+	 *         for (int[] person : people) {
+	 *             ansList.add(person[1], person);
+	 *         }
+	 *         int index = 0;
+	 *         for (int[] person : ansList) {
+	 *             people[index++] = person;
+	 *         }
+	 *         return people;
+	 *     }
+	 * }
+	 * */
 }
