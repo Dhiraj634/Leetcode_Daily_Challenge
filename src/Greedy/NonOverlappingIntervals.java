@@ -5,16 +5,20 @@ import java.util.Comparator;
 
 public class NonOverlappingIntervals {
 	public int eraseOverlapIntervals(int[][] intervals) {
-		Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+//		Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+		Arrays.sort(intervals, (a,b) -> a[0] - b[0]);
 		int left = 0, right = 1;
 		int count = 0;
 		while(right < intervals.length) {
-			int overlapLeft = Math.max(intervals[left][0], intervals[right][0]);
-			int overlapRight = Math.min(intervals[left][1], intervals[right][1]);
+//			int overlapLeft = Math.max(intervals[left][0], intervals[right][0]);
+//			int overlapRight = Math.min(intervals[left][1], intervals[right][1]);
 			/**
 			 * If over-lap is not there we simply move aur left pointer to right and right = right+1 and continue checking
 			 */
-			if(overlapLeft >= overlapRight){
+//			if(overlapLeft >= overlapRight){
+//				left = right;
+//			}
+			if(intervals[left][1] <= intervals[right][0]){
 				left = right;
 			}
 			/**
