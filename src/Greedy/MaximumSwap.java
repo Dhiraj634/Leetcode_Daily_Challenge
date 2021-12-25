@@ -1,44 +1,35 @@
 package Greedy;
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MaximumSwap {
 	public int maximumSwap(int num) {
-		PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> b-a);
+		int[][] fre = new int[10][2];
 		String numStr = String.valueOf(num);
-		for(char ch: numStr.toCharArray()){
-			pq.add(ch);
+		for(int i=0;i<numStr.length();i++){
+			int digit = numStr.charAt(i)-'0';
+			fre[digit][0]++;
+			fre[digit][1]=i;
 		}
-		int indexToSwap = 0;
-		char charToSwap = '\0';
-		while(!pq.isEmpty()){
-			if(numStr.charAt(indexToSwap) == pq.peek()){
-				pq.poll();
-				indexToSwap++;
+		Queue<Integer> queue = new LinkedList<>();
+		for(int i=9;i>=0;i--){
+			for(int j=0;j<fre[i][0];j++){
+				queue.add(i);
+			}
+		}
+		StringBuilder sb = new StringBuilder(numStr);
+		for(int i=0;i<numStr.length();i++){
+			if(numStr.charAt(i)-'0' == queue.peek()){
+				queue.poll();
 			}else{
-				charToSwap = pq.poll();
+				int temp = queue.poll();
+				sb.replace(i,i+1,String.valueOf(temp));
+				sb.replace(fre[temp][1],fre[temp][1]+1,String.valueOf(numStr.charAt(i)));
 				break;
 			}
 		}
-		if(charToSwap == '\0'){
-			return num;
-		}
-		else {
-			int indexToSwapWith = indexToSwap;
-			for (int i = indexToSwap; i < numStr.length(); i++) {
-				if (numStr.charAt(i) == charToSwap) {
-					indexToSwapWith = i;
-				}
-			}
-				StringBuilder finalAns = new StringBuilder();
-				finalAns.append(numStr, 0, indexToSwap)
-						.append(numStr.charAt(indexToSwapWith))
-						.append(numStr, indexToSwap + 1, indexToSwapWith)
-						.append(numStr.charAt(indexToSwap))
-						.append(numStr.substring(indexToSwapWith + 1));
-				return Integer.parseInt(finalAns.toString());
-			}
-		}
-
+		return Integer.parseInt(sb.toString());
+	}
 
 }
