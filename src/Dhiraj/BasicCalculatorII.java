@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class BasicCalculatorII {
+	/**
+	 * TC: O(n)
+	 * SC: O(1)
+	 * */
 	public int calculate(String s) {
 		ArrayList<String> arr = new ArrayList<>();
 		StringBuilder sb = new StringBuilder();
@@ -72,4 +76,9 @@ public class BasicCalculatorII {
 		}
 		return new ArrayList<>(parsedArr);
 	}
+	/**
+	 * Refer to Leetcode solution for more precise and optimized algorithm
+	 * TC: O(n)
+	 * SC: O(1)
+	 * */
 }
