@@ -1,7 +1,7 @@
 package Greedy;
 
 public class SplitArrayIntoConsecutiveSubsequences {
-	final int LENGTH=1000;
+	final int LENGTH=2001;
 	final int MAX_NUMBER=2002;
 	public boolean isPossible(int[] nums) {
 		for(int i=0;i<nums.length;i++){
