@@ -9,33 +9,25 @@ public class ReorganizeString {
         for(char ch: s.toCharArray()){
             fre[ch-'a']++;
         }
-        PriorityQueue<Node> pq = new PriorityQueue<>((a,b) -> b.fre - a.fre);
+        // int[0] represents the character and int[1] represents the frequency
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> b[1] - a[1]);
         for(int i=0;i<26;i++){
-            if(fre[i] > 0) pq.add(new Node((char)('a'+i),fre[i]));
+            if(fre[i] > 0) pq.add(new int[]{i, fre[i]});
         }
         StringBuilder sb = new StringBuilder();
         while(pq.size() > 0){
-            ArrayList<Node> tempList = new ArrayList<>();
-            while(sb.length() > 0  && pq.size() > 0 &&  sb.charAt(sb.length()-1) == pq.peek().ch){
+            ArrayList<int[]> tempList = new ArrayList<>();
+            while(sb.length() > 0  && pq.size() > 0 &&  sb.charAt(sb.length()-1) - 'a' == pq.peek()[0]){
                 tempList.add(pq.poll());
             }
             if(pq.size() == 0) return "";
-            Node node = pq.poll();
-            sb.append(node.ch);
-            node.fre--;
-            if(node.fre > 0) tempList.add(node);
+            int[] node = pq.poll();
+            sb.append((char)(node[0]+'a'));
+            node[1]--;
+            if(node[1] > 0) tempList.add(node);
             pq.addAll(tempList);
 
         }
         return sb.toString();
-
-    }
-    private class Node {
-        int fre;
-        char ch;
-        Node(char _ch,int _fre){
-            this.ch = _ch;
-            this.fre = _fre;
-        }
     }
 }
