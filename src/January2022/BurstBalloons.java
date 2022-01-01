@@ -8,9 +8,15 @@ public class BurstBalloons {
     Map<String, Integer> dp = new HashMap<>();
     public int maxCoins(int[] nums) {
         nums = Arrays.stream(nums).filter(a -> a >0).toArray();
-        StringBuilder sb = new StringBuilder();
-        boolean[] included = new boolean[nums.length];
-        return getMax(nums, included);
+
+        // DP approach, similar to matrix chain multiplication
+        // Watch the video for explanation https://www.youtube.com/watch?v=YzvF8CqPafI
+        return maxCoinsDp(nums);
+
+
+
+        // Recursive Approach giving TLE
+        // return getMax(nums, new boolean[nums.length]);
     }
     private int getMax(int[] arr, boolean[] included){
         StringBuilder sb = new StringBuilder();
@@ -39,5 +45,28 @@ public class BurstBalloons {
         }
         dp.put(sb.toString(), tempMax);
         return tempMax;
+    }
+
+    private int maxCoinsDp(int[] nums) {
+        nums = Arrays.stream(nums).filter(a -> a >0).toArray();
+        int n = nums.length;
+        int dp[][] = new int[n][n];
+
+        for(int gap = 0; gap < n ; gap++){
+            for(int left = 0, right =gap; right < n ;left++,right++) {
+
+                int max = -1;
+                for(int k = left;k<=right;k++){
+                    int leftVal = k ==left ? 0: dp[left][k-1];
+                    int rightVal = k == right ? 0 : dp[k+1][right];
+                    int val = (left == 0 ? 1 : nums[left-1]) * nums[k] * (right == n-1 ? 1 : nums[right+1]);
+                    int total = leftVal + rightVal + val;
+                    max = Math.max(total, max);
+                }
+                dp[left][right]=max;
+            }
+        }
+        return dp[0][n-1];
+
     }
 }
