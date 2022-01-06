@@ -1,12 +1,27 @@
 package January2022;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
-
 public class CarPooling {
     public boolean carPooling(int[][] trips, int capacity) {
+
+        // Further, optimized based on the constraints
+        // TC: O(n)
+        // SC: O(n)
+        int[] pickUp = new int[1001];
+        int[] drop = new int[1001];
+        for(int[] trip: trips){
+            pickUp[trip[1]]+=trip[0];
+            drop[trip[2]]+=trip[0];
+        }
+        for(int i=0;i<=1000;i++){
+            capacity+=drop[i];
+            capacity-=pickUp[i];
+            if(capacity < 0) return false;
+        }
+        return true;
+
         // Optimized Code
         // TC: O(nlogn)
+        /*
         Arrays.sort(trips, (a,b) -> a[1]==b[1] ? a[2]-b[2] : a[1]-b[1]);
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
         for(int[] trip: trips){
@@ -21,6 +36,8 @@ public class CarPooling {
 
         }
         return true;
+
+         */
 
         // Brute force approach
         // TC : O(n^2)
