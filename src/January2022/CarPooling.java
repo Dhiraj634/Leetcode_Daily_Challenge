@@ -3,9 +3,24 @@ package January2022;
 public class CarPooling {
     public boolean carPooling(int[][] trips, int capacity) {
 
-        // Further, optimized based on the constraints
-        // TC: O(n)
-        // SC: O(n)
+        /** Optimized Space Complexity */
+        int[] pickUp = new int[1001];
+        for(int[] trip: trips){
+            pickUp[trip[1]]+=trip[0];
+            pickUp[trip[2]]-=trip[0];
+        }
+        for(int i=0;i<=1000;i++){
+            capacity-=pickUp[i];
+            if(capacity < 0) return false;
+        }
+        return true;
+
+         /**
+          * Further, optimized based on the constraints
+          * TC: O(n)
+          * SC: O(n)
+          */
+        /*
         int[] pickUp = new int[1001];
         int[] drop = new int[1001];
         for(int[] trip: trips){
@@ -18,9 +33,13 @@ public class CarPooling {
             if(capacity < 0) return false;
         }
         return true;
+        */
 
-        // Optimized Code
-        // TC: O(nlogn)
+         /**
+          * Optimized Code
+          * TC: O(nlogn)
+          * SC: O(n)
+          * */
         /*
         Arrays.sort(trips, (a,b) -> a[1]==b[1] ? a[2]-b[2] : a[1]-b[1]);
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
@@ -39,8 +58,11 @@ public class CarPooling {
 
          */
 
-        // Brute force approach
-        // TC : O(n^2)
+        /**
+         * Brute force approach
+         * TC : O(n^2)
+         * SC : O(n)
+         * */
         /*
             Arrays.sort(trips, (a,b) -> a[1]==b[1] ? a[2]-b[2] : a[1]-b[1]);
             boolean[] passengerLeft = new boolean[trips.length];
