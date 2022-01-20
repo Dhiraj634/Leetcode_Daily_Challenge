@@ -9,7 +9,7 @@ public class KokoEatsBananas {
             max = Math.max(max,pile);
         }
         int upper = max;
-        int lower = 1;
+        int lower = (int)((total-1)/h) + 1;
         while(lower <= upper){
             int mid = (lower + upper)/2;
             if(isPossible(mid,h,piles)){
