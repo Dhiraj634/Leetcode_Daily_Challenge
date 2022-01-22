@@ -39,6 +39,7 @@ public class StoneGameIV {
         for(int i = 1;i<n+1;i++){
             int turn = 0;
             int tempWinner = turn^1;
+            //If we use the loop from sqrt(i) to 1then the code runs fast
             for(int j = 1;j*j<=i;j++){
                 tempWinner = tempWinner & dp[i - j*j][ turn^1];
                 if(tempWinner == turn){
